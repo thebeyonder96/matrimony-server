@@ -1,7 +1,8 @@
 import { SERVER } from "./app";
 import { LOGGER } from "./lib/logger";
-import { ServerConfig } from "./configs";
-import { PRISMA } from "./lib/prisma";
+import { Database, ServerConfig } from "./configs";
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
 
 const PORT = ServerConfig.PORT || 7000;
 
@@ -10,7 +11,8 @@ const PORT = ServerConfig.PORT || 7000;
  */
 const startServer = async () => {
   try {
-    await PRISMA.$connect()
+    const client = postgres(Database.DATABASE_URL, { prepare: false })
+    const db = drizzle({ client });
     LOGGER.info("Database connection successful");
   } catch (error) {
     LOGGER.error("Unable to connect to database:", error);

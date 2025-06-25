@@ -8,18 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = require("./app");
 const logger_1 = require("./lib/logger");
 const configs_1 = require("./configs");
-const prisma_1 = require("./lib/prisma");
+const postgres_js_1 = require("drizzle-orm/postgres-js");
+const postgres_1 = __importDefault(require("postgres"));
 const PORT = configs_1.ServerConfig.PORT || 7000;
 /**
  * Start the server
  */
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield prisma_1.PRISMA.$connect();
+        const client = (0, postgres_1.default)(configs_1.Database.DATABASE_URL, { prepare: false });
+        const db = (0, postgres_js_1.drizzle)({ client });
         logger_1.LOGGER.info("Database connection successful");
     }
     catch (error) {

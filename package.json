@@ -13,11 +13,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^6.9.0",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.44.2",
     "express": "^5.1.0",
     "express-rate-limit": "^7.5.0",
     "express-session": "^1.18.1",
@@ -26,6 +26,7 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "pg": "^8.16.0",
+    "postgres": "^3.4.7",
     "socket.io": "^4.8.1",
     "winston": "^3.17.0"
   },
@@ -38,8 +39,9 @@
     "@types/passport": "^1.0.17",
     "@types/passport-google-oauth20": "^2.0.16",
     "@types/pg": "^8.15.4",
-    "prisma": "^6.9.0",
+    "drizzle-kit": "^0.31.2",
     "tsc-watch": "^7.0.0",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   }
 }

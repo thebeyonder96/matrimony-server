@@ -18,15 +18,14 @@ const cors_1 = __importDefault(require("cors"));
 require("./lib/passport");
 const APP = (0, express_1.default)();
 APP.use((0, helmet_1.default)());
-APP.use((0, compression_1.default)());
-APP.use(express_1.default.json({ limit: '1000kb' }));
 APP.use((0, cookie_parser_1.default)());
+APP.use(express_1.default.json({ limit: '1000kb' }));
+APP.use((0, compression_1.default)());
 APP.use((0, cors_1.default)({
     origin: 'http://localhost:3000',
     credentials: true,
     methods: ['GET', 'POST', 'OPTIONS']
 }));
-APP.use('/api', routes_1.default);
 /**
  * Health check
  */
@@ -38,13 +37,14 @@ APP.use((0, express_session_1.default)({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: false, // set to true in production with HTTPS
+        secure: false,
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24, // 1 day
+        maxAge: 1000 * 60 * 60 * 24,
     },
 }));
 APP.use(passport_1.default.initialize());
 APP.use(passport_1.default.session());
+APP.use('/api', routes_1.default);
 APP.use('/auth', auth_route_1.default);
 APP.get('/login', (_req, res) => {
     res.send('<a href="/auth/google">Login with Google</a>');

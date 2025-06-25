@@ -13,16 +13,15 @@ import "./lib/passport";
 
 const APP = express();
 APP.use(helmet())
-APP.use(compression())
-APP.use(express.json({limit: '1000kb'}))
 APP.use(cookieParser())
+APP.use(express.json({limit: '1000kb'}))
+APP.use(compression())
 APP.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS']
 }))
 
-APP.use('/api',ROUTER)
 
 /**
  * Health check
@@ -37,9 +36,9 @@ APP.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // set to true in production with HTTPS
+      secure: false,
       httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      maxAge: 1000 * 60 * 60 * 24,
     },
   })
 );
@@ -47,6 +46,7 @@ APP.use(
 APP.use(passport.initialize());
 APP.use(passport.session());
 
+APP.use('/api',ROUTER)
 APP.use('/auth', AUTH_ROUTER);
 
 APP.get('/login', (_req, res) => {

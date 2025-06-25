@@ -10,11 +10,10 @@ AUTH_ROUTER.get(
   '/google/callback',
   passport.authenticate('google', {
     failureRedirect: '/auth/failure',
-    successRedirect: '/auth/user',
     session: true
   }),
   (req, res) => {
-    res.redirect('http://localhost:3000/profile');
+    return res.redirect('http://localhost:3000/profile');
   }
 
 );
@@ -30,8 +29,11 @@ AUTH_ROUTER.get('/failure', (_req, res) => {
 });
 
 AUTH_ROUTER.get('/user', ensureAuth, (req, res) => {
-  console.log(req.user)
-  res.send(`Hello, ${(req.user as any).name}`).json(req.user);
+  if(!req.user){
+    res.status(401).json('Unauthorized').redirect('/profile')
+    return 
+  }
+  res.json(req.user);
 });
 
 export default AUTH_ROUTER;
