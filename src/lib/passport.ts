@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { Google } from '../configs';
+import { Environment, Google } from '../configs';
 import { DB } from './drizzle';
 import { eq } from 'drizzle-orm';
 import { USERS } from '../db/schema';
@@ -28,7 +28,7 @@ passport.use('google', new GoogleStrategy(
   {
     clientID: Google.GOOGLE_CLIENT_ID!,
     clientSecret: Google.GOOGLE_CLIENT_SECRET!,
-    callbackURL: "http://localhost:7000/auth/google/callback"
+    callbackURL: `${Environment.BASE_URL}/auth/google/callback"`
   },
   async (_accessToken, _refreshToken, profile, done) => {
     try {

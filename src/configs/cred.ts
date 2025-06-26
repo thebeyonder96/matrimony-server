@@ -16,6 +16,7 @@ export namespace JWT{
 
 export namespace Environment{
     export const NODE_ENV = process.env.NODE_ENV as string
+    export const BASE_URL = process.env.BASE_URL as string
 }
 
 export namespace Database{
