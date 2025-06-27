@@ -3,6 +3,4 @@ node_modules
 .env.development
 
 /src/generated/prisma
-dist/*
-dist
-dist/app.js
+
