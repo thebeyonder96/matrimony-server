@@ -1,6 +1,7 @@
 import { Router } from "express";
 import passport from 'passport';
 import { ensureAuth } from "../middlewares/ensureAuth";
+import { Environment } from "../configs";
 
 const AUTH_ROUTER = Router();
 
@@ -13,7 +14,7 @@ AUTH_ROUTER.get(
     session: true
   }),
   (req, res) => {
-    return res.redirect('http://localhost:3000/profile');
+    return res.redirect(Environment.REDIRECT_URL);
   }
 
 );

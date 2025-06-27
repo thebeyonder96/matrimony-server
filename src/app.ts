@@ -10,6 +10,7 @@ import ROUTER from "./routes";
 import AUTH_ROUTER from "./routes/auth.route";
 import cors from 'cors';
 import "./lib/passport";
+import { Environment } from "./configs";
 
 const APP = express();
 APP.use(helmet())
@@ -17,7 +18,7 @@ APP.use(cookieParser())
 APP.use(express.json({limit: '1000kb'}))
 APP.use(compression())
 APP.use(cors({
-  origin: 'http://localhost:3000',
+  origin: Environment.ORIGIN,
   credentials: true,
   methods: ['GET', 'POST', 'OPTIONS']
 }))
